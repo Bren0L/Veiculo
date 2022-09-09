@@ -8,18 +8,25 @@ public class Moto extends Veiculo{
     TimerTask tarefa;
     Moto(){}
 
-    void acelerar(int velocidade){
-        if(getCombustivel() > 0){
-            if(velocidade > 0 && getVelAtual() + velocidade < 241){
-                setVelAtual(velocidade);
-                verificaMarcha();
-            }else System.out.println("ERRO: Valor acima do esperado ou negativo");
-        }else System.out.println("Sem gasolina");
+    void acelerar(int velocidade) throws InterruptedException {
+        if(velocidade > 0 && getVelAtual() + velocidade < 241){
+            while (0 != velocidade--){
+                setVelAtual(getVelAtual()+1);
+                System.out.println(getVelAtual());
+                Thread.sleep(50);
+            }
+            verificaMarcha();
+        }else System.out.println("ERRO: Valor acima do esperado ou negativo");
     }
 
-    void desacelerar(int velocidade){
+    void desacelerar(int velocidade) throws InterruptedException {
         if(velocidade > 0 && getVelAtual() - velocidade > -1){
-            setVelAtual(-velocidade);
+            while(0 != velocidade--){
+                setVelAtual(getVelAtual()-1);
+                System.out.println(getVelAtual());
+                Thread.sleep(50);
+            }
+
             verificaMarcha();
         }else System.out.println("Valor acima do esperado ou valor negativo");
     }

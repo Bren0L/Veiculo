@@ -1,7 +1,9 @@
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         Moto moto = new Moto();
         moto.setCombustivel(1);
@@ -9,11 +11,19 @@ public class Main {
 
         do{
             System.out.println("O que dejeja fazer?");
-            System.out.println("1.Acelerar 2.Desacelerar 3.Ligar 4.Desligar 5.Abastecer");
+            System.out.println("1.Acelerar 2.Desacelerar 3.Ligar 4.Desligar 5.Abastecer 6.Finalizar");
             switch(input.nextInt()){
                 case 1 -> {
-                    System.out.println("Quanto deseja acelerar?");
-                    moto.acelerar(input.nextInt());
+                    if(moto.isLigadoBool()){
+                        if(moto.getCombustivel() > 0){
+                            System.out.println("Quanto deseja acelerar?");
+                            moto.acelerar(input.nextInt());
+                        }else{
+                            System.out.println("Sem combustívell");
+                        }
+                    }else{
+                        System.out.println("Veículo desligado");
+                    }
                 }
                 case 2 ->{
                     System.out.println("O quanto deseja desacelerar?");
@@ -31,8 +41,12 @@ public class Main {
                     System.out.println("Insira a quantidade de combust�vel em litros:");
                     moto.setCombustivel(input.nextDouble());
                 }
+                case 6 -> {
+                    System.out.println("Fechando programa");
+                    exit(0);
+                }
                 default ->
-                        System.out.println("Comando inv�lido");
+                        System.out.println("Comando inválido");
             }
         }while(true);
     }
